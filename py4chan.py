@@ -3,13 +3,12 @@ import os
 
 class chandownloader:
 
-    Url = None
-    Text = 'href="//i.4cdn.org/g/'
-    Links = []
-
     def __init__(self, board, number):
         self.board = board
         self.number = number
+        self.Text = 'href="//i.4cdn.org/'+self.board+'/'
+        self.Links= []
+        self.Url = None
 
     def __str__(self):
         if self.Url == None:
