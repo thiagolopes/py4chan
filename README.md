@@ -2,7 +2,7 @@
 
 Easily download images from 4chan
 
-![py4chan](https://1.bp.blogspot.com/-0IozCoKz7gk/U_uEf7dQppI/AAAAAAAALCc/xs6Fx5L4S24/s1600/vivian_james.jpg)
+![py4chan](http://pre02.deviantart.net/e560/th/pre/f/2007/079/5/c/yotsuba_and_4chan_by_teh_bojangles.png)
 
 ### How to use: 
 
@@ -46,9 +46,9 @@ Out: 1467152220290.jpg
 
 ### Requeriments
 
-    * requests==2.10.0
-    * clint==0.5.1
+```
+requests==2.10.0
+clint==0.5.1
+```
 
-![license](https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPLv3_Logo.svg/2000px-GPLv3_Logo.svg.png)
-
-![4chan](http://img04.deviantart.net/f67e/i/2014/096/7/3/4chan_logo_vector__transparent_background__by_wize_kevn-d7da8ts.png)
+![gpl](https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPLv3_Logo.svg/180px-GPLv3_Logo.svg.png) 
