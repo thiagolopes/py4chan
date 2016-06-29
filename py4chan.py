@@ -1,5 +1,6 @@
 import requests
 import os
+from clint.textui import progress
 
 class chandownloader:
 
@@ -14,7 +15,12 @@ class chandownloader:
         if self.Url == None:
             return "Dont have valid thread"
         else:
-            msg = "Board: /{}/ \nThread: {} \nUrl: {}".format(self.board,self.number,self.Url)
+            if not self.Links:
+                msg = "Board: /{}/ \nThread: {} \nUrl: {}".format(self.board,self.number,self.Url)
+            else:
+                msg = "Board: /{}/ \nThread: {} \nUrl: {} \nI found {} images in Thread".format(
+                    self.board,self.number,self.Url,len(self.Links))
+
             return msg
 
     def verific_url(self):
@@ -56,5 +62,8 @@ class chandownloader:
             r = requests.get(image_link, stream = True)
 
             with open(self.number+'/'+image_name, 'wb') as f:
-                for chunk in r.iter_content():
+                length = int(r.headers.get('content-length'))
+                print(image_name+' ')
+                for chunk in progress.bar(r.iter_content(chunk_size=1024),expected_size=(length/1024) + 1):
                     f.write(chunk)
+                    f.flush()
