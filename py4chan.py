@@ -2,7 +2,7 @@ import requests
 import os
 from clint.textui import progress
 
-class chandownloader:
+class py4chan:
 
     def __init__(self, board, number):
         self.board = board
