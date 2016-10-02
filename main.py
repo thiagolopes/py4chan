@@ -18,6 +18,7 @@ if __name__ == "__main__":
             c.clear_Link()
             c.creat_dir()
             c.download_images()
+            print(c.Links)
 
             print("GREAT\n"+"-"*30)
             q = input("Download another board? (y/n)\n")
