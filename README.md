@@ -1,5 +1,7 @@
 # Download image from 4chan
 
+[![Code Health](https://landscape.io/github/ThiagoLopes/py4chan/master/landscape.svg?style=flat)](https://landscape.io/github/ThiagoLopes/py4chan/master)
+
 Easily download images from 4chan
 
 ![py4chan](http://pre02.deviantart.net/e560/th/pre/f/2007/079/5/c/yotsuba_and_4chan_by_teh_bojangles.png)
@@ -13,7 +15,6 @@ Type Board, example: sp
 Type thread number:
 >>XXXXXXXX
 
-------------------------------
 Board: /b/ 
 Thread: XXXXXXX
 Url: https://boards.4chan.org/b/thread/XXXXXXX
