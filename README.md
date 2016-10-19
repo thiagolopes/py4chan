@@ -7,44 +7,35 @@ Easily download images from 4chan
 ### How to use: 
 
 ```python
-# entre with board and thread number
-c = chandownloader('sp','69046803')
+Type Board, example: sp
+>> b
 
-# validate the url
-c.verific_url()
+Type thread number:
+>>XXXXXXXX
 
-# searching images in tread 
-c.get_links_content()
+------------------------------
+Board: /b/ 
+Thread: XXXXXXX
+Url: https://boards.4chan.org/b/thread/XXXXXXX
+I found XX images in Thread
 
-# clean duplicate links, always use
-c.clear_Link()
+1467152220290.jpg 
+[################################] 20/20 - 00:00:00
+1467152565680.jpg 
+[################################] 22/22 - 00:00:00
+1467154452257.png 
+[################################] 303/303 - 00:00:00
+1467154701557.png 
+[################################] 944/944 - 00:00:01
+1467154899017.jpg 
+[################################] 13/13 - 00:00:00
 
-# create directory
-c.creat_dir()
+(...)
 
-print (c)
-
-Out: Board: /sp/ 
-     Thread: 69046803 
-     Url: https://boards.4chan.org/sp/thread/69046803 
-     I found 5 images in Thread
-
-# Download images
-c.download_images()
-Out: 1467152220290.jpg 
-     [################################] 20/20 - 00:00:00
-     1467152565680.jpg 
-     [################################] 22/22 - 00:00:00
-     1467154452257.png 
-     [################################] 303/303 - 00:00:00
-     1467154701557.png 
-     [################################] 944/944 - 00:00:01
-     1467154899017.jpg 
-     [################################] 13/13 - 00:00:00
 
 ```
 
-### Requeriments
+### Requirements
 
 ```
 requests==2.10.0

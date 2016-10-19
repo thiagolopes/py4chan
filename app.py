@@ -1,22 +1,20 @@
-from py4chan import py4chan
+from py4chan import Py4chan
 
 if __name__ == "__main__":
 
     while True:
 
-        board = input("Entre with board name, example: sp\n")
-        thread = input ("Entre with thread number:\n")
+        board = input("Type Board, example: sp\n")
+        thread = input ("Type thread number:\n")
 
-        c = py4chan(board,thread)
+        c = Py4chan(board,thread)
         c.verific_url()
 
         if c.Url != None:
             print ("-"*30)
-            print (c)
 
             c.get_links_content()
-            c.clear_Link()
-            c.creat_dir()
+            print (c)
             c.download_images()
             print(c.Links)
 
