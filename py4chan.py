@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
                              # level=logging.DEBUG)
 
 
-def get_boards(context: str) -> dict:
+def get_boards(context: str, just_code=False) -> dict:
     if isinstance(context, str):
         soup_chan = BeautifulSoup(context, 'html5lib')
 
@@ -15,17 +15,25 @@ def get_boards(context: str) -> dict:
         links = soup_chan.find_all('a', class_='boardlink')
 
         # dict comprehension for create all links and remove popular threads
-        boards = dict((name.string, 'https:'+url['href'])
-                      for name, url in zip(links, links)
-                      if name.string is not None)
+        if just_code:
+            boards = dict((name.string, '{}'.format(
+                          url['href'].split('/')[-2]))
+                          for name, url in zip(links, links)
+                          if name.string is not None)
+        # full link
+        else:
+            boards = dict((name.string, 'https:'+url['href'])
+                          for name, url in zip(links, links)
+                          if name.string is not None)
 
         return boards
     else:
         return None
 
 
-
-def get_threads(context: str, preview=50) -> tuple:
+# TODO implemente pagination
+# TODO implemente all pages threads
+def get_threads(context: str, preview=True, legth=50) -> tuple:
     if isinstance(context, str):
         # parse html
         soup_threads = BeautifulSoup(context, 'html5lib')
@@ -33,9 +41,9 @@ def get_threads(context: str, preview=50) -> tuple:
         list_threads = soup_threads.find_all('div', class_='thread')
         # a tuple comps -> (('id', 'description')...)
         threads = tuple((int(thread['id'][1:]),
-                        thread.find(class_='postMessage').get_text()[:preview])
-                        for thread in list_threads)
+                        thread.find(class_='postMessage').get_text()[:legth])
 
+                        for thread in list_threads)
         return threads
 
 
@@ -43,5 +51,12 @@ def get_images_links(context: str) -> tuple:
     if isinstance(context, str):
         soup_images = BeautifulSoup(context, 'html5lib')
         list_links = soup_images.find_all('a', class_='fileThumb')
-        links = tuple('https:'+x['href'] for x in list_links)
+        # change //.i to //.t, not to receive 403
+        links = tuple('https:'+x['href'].replace('//i.', '//t.')
+                      for x in list_links)
+
+        # TODO implemente thumbnais
+        """
+        the link for thumnais is //.t and xxxxxxxxs.jpg
+        """
         return links
