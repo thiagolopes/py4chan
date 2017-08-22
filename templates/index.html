@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="center">
+  <h1 class="h1 title">Welcome to <span class="italic bold">py4chan</span></h1>
+  <h2 class="title">A simple wrapper to download imagens</h2>
+
+  <i class="tuto">how to use:</i>
+  <p>/<b>board_id</b>/ - to see board's threads</p>
+  <p>/<b>board_id</b>/<b>thread_number</b>/ - to see images</p>
+
+  <i class="tuto">or use the interface:</i>
+  <div class="col-6 mx-auto">
+  <div class="list-reset flex flex-wrap justify-center">
+    {% for board, link in boards_list.items() %}
+    <a class="p1" href="{{ url_for('threads', board=link) }}">{{ board }}</a>
+    {% endfor %}
+  </div>
+  </div>
+
+</div>
+{% endblock %}

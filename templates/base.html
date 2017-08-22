@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {{ title or "py4chan" }} {% endblock %}</title>
+    <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
+    <style>
+        body{
+          background-color: #242424;
+          color: #fff;
+        }
+        a{
+          color: #fff;
+          font-weight: bold;;
+        }
+        a:visited{
+          color: #FE2573;
+        }
+        .tuto{
+          color:#6CC72C;
+        }
+        .title{
+          color:#CFD0C2;
+        }
+    </style>
+  </head>
+  <body>
+    {% block body %}
+    {% endblock %}
+  </body>
+</html>

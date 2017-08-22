@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="col-6 mx-auto">
+  {% for link in images_list %}
+  <a href="{{ link }}" _targe="blank">
+    <img class="fit mx-auto block" src="{{ link }}">
+  </a>
+  <br>
+  {% endfor %}
+</div>
+
+{% endblock %}

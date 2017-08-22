@@ -1,27 +1,42 @@
-from py4chan import Py4chan
+import requests
+import py4chan
+from flask import Flask, render_template
 
-if __name__ == "__main__":
 
-    while True:
+app = Flask('py4chan')
 
-        board = input("Type Board, example: sp\n")
-        thread = input ("Type thread number:\n")
+context_chan = requests.get('https://4chan.org')
+context_chan_text = context_chan.text
 
-        c = Py4chan(board,thread)
-        c.verific_url()
 
-        if c.Url != None:
-            print ("-"*30)
+@app.route('/')
+def boards():
+    boards = py4chan.get_boards(context_chan_text, just_code=True)
+    return render_template('index.html', boards_list=boards)
 
-            c.get_links_content()
-            print (c)
-            c.download_images()
-            print(c.Links)
 
-            print("GREAT\n"+"-"*30)
-            q = input("Download another board? (y/n)\n")
-            if q == "n":
-                break;
-        else:
-            print ('Error, try again\n'+"-"*30)
+@app.route('/<string:board>/')
+def threads(board=None):
+    try:
+        context = requests.get('https://4chan.org/{}'.format(board))
+        context.raise_for_status()
+        threads = py4chan.get_threads(context.text)
+        return render_template('threads.html', threads=threads)
+    except requests.exceptions.HTTPError:
+        return "404, no threads here", 404
 
+
+@app.route('/<string:name>/<int:id_t>/')
+def thread_images(name=None, id_t=None):
+    try:
+        context = requests.get('https://boards.4chan.org/{}/thread/{}'
+                               .format(name, id_t))
+        context.raise_for_status()
+        images = py4chan.get_images_links(context.text)
+        return render_template('images.html', images_list=images)
+    except requests.exceptions.HTTPError:
+        return "404, no images here", 404
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
