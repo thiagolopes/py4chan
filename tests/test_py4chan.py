@@ -23,13 +23,14 @@ class TestGetBoards(unittest.TestCase):
         self.assertIsInstance(get_boards(''), dict)
 
     def test_error_keyerror(self):
-        self.assertEqual(get_boards(0), None)
+        self.assertEqual(get_boards(0), {})
 
     def test_get_boards_just_code(self):
         self.assertEqual(get_boards(self.context.text, True)['Random'], 'b')
 
 
 class TestGetThreads(unittest.TestCase):
+
     def setUp(self):
         self.context = requests.get(LINK_BOARD.format('g'))
         self.get = get_threads(self.context.text)
@@ -51,6 +52,7 @@ class TestGetThreads(unittest.TestCase):
 
 
 class TestGetImagesLinks(unittest.TestCase):
+
     def setUp(self):
         self.context = requests.get(LINK_THREAD.format('g', '51971506'))
         self.get = get_images_links(self.context.text)
