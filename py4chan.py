@@ -22,13 +22,13 @@ def get_boards(context: str, just_code=False) -> dict:
                           if name.string is not None)
         # full link
         else:
-            boards = dict((name.string, 'https:'+url['href'])
+            boards = dict((name.string, 'https:' + url['href'])
                           for name, url in zip(links, links)
                           if name.string is not None)
 
         return boards
     else:
-        return None
+        return dict()
 
 
 # TODO implemente pagination
@@ -52,7 +52,7 @@ def get_images_links(context: str) -> tuple:
         soup_images = BeautifulSoup(context, 'html5lib')
         list_links = soup_images.find_all('a', class_='fileThumb')
         # change //.i to //.t, not to receive 403
-        links = tuple('https:'+x['href'].replace('//i.', '//t.')
+        links = tuple('https:' + x['href'].replace('//i.', '//t.')
                       for x in list_links)
 
         # TODO implemente thumbnais
