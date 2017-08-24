@@ -33,7 +33,7 @@ def get_boards(context: str, just_code=False) -> dict:
 
 # TODO implemente pagination
 # TODO implemente all pages threads
-def get_threads(context: str, preview=True, legth=50) -> tuple:
+def get_threads(context: str, preview=True, length=50) -> tuple:
     if isinstance(context, str):
         # parse html
         soup_threads = BeautifulSoup(context, 'html5lib')
@@ -41,7 +41,7 @@ def get_threads(context: str, preview=True, legth=50) -> tuple:
         list_threads = soup_threads.find_all('div', class_='thread')
         # a tuple comps -> (('id', 'description')...)
         threads = tuple((int(thread['id'][1:]),
-                        thread.find(class_='postMessage').get_text()[:legth])
+                        thread.find(class_='postMessage').get_text()[:length])
 
                         for thread in list_threads)
         return threads
