@@ -3,6 +3,7 @@ import unittest
 
 
 class TestAppWeb(unittest.TestCase):
+    # TODO more tests
 
     def setUp(self):
         project.app.testing = True
@@ -15,6 +16,9 @@ class TestAppWeb(unittest.TestCase):
         # threads
         threads = self.app.get('/g/')
         self.assertEqual(threads.status_code, 200)
+        # page
+        page = self.app.get('/g/?page=2')
+        self.assertEqual(page.status_code, 200)
         # images
         images = self.app.get('/g/51971506/')
         self.assertEqual(images.status_code, 200)
@@ -24,7 +28,11 @@ class TestAppWeb(unittest.TestCase):
         threads = self.app.get('/xxx/')
         self.assertEqual(threads.status_code, 404)
         # images
-        # TODO more tests
+        images = self.app.get('/g/66666666/')
+        self.assertEqual(images.status_code, 404)
+        # pages
+        page = self.app.get('/g/?page=11')
+        self.assertEqual(page.status_code, 404)
 
 
 if __name__ == '__main__':
