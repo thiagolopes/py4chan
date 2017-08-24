@@ -1,6 +1,7 @@
 import os
 import requests
 import py4chan
+import click
 from flask import Flask, render_template, request
 
 
@@ -43,7 +44,13 @@ def thread_images(name=None, id_t=None):
         return "404, no images here", 404
 
 
-if __name__ == '__main__':
-    DEBUG = True
+@click.command()
+@click.option('--debug', default=False)
+def main(debug):
+    DEBUG = debug
     port = int(os.environ.get("port", 5000))
     app.run(host='0.0.0.0', port=port, debug=DEBUG)
+
+
+if __name__ == '__main__':
+    main()
