@@ -1,7 +1,7 @@
 import os
 import requests
 import py4chan
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 
 app = Flask('py4chan')
@@ -19,9 +19,13 @@ def boards():
 @app.route('/<string:board>/')
 def threads(board=None):
     try:
-        context = requests.get('https://4chan.org/{}'.format(board))
+        if request.args.get('page', None) is None:
+            context = requests.get('https://boards.4chan.org/{}'.format(board))
+        else:
+            context = requests.get('https://boards.4chan.org/{}/{}'
+                                   .format(board, request.args.get('page')))
         context.raise_for_status()
-        threads = py4chan.get_threads(context.text)
+        threads = py4chan.get_threads(context.text, length=None)
         return render_template('threads.html', threads=threads)
     except requests.exceptions.HTTPError:
         return "404, no threads here", 404
@@ -40,5 +44,6 @@ def thread_images(name=None, id_t=None):
 
 
 if __name__ == '__main__':
+    DEBUG = True
     port = int(os.environ.get("port", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=DEBUG)
