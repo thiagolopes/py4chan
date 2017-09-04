@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
 # config for debug
-# logger = logging.basicConfig(format='''\033[1m%(asctime)s\033[0m
+# logger = loggin.basicConfig(format='''\033[1m%(asctime)s\033[0m
                                     # \033[92m%(message)s \033[0m''',
                              # datefmt='%m/%d/%Y %I:%M:%S %p',
                              # level=logging.DEBUG)
@@ -33,17 +33,17 @@ def get_boards(context: str, just_code=False) -> dict:
 
 # TODO implemente pagination
 # TODO implemente all pages threads
-def get_threads(context: str, preview=True, length=50) -> tuple:
+def get_threads(context: str, preview=True, length=50) -> list:
     if isinstance(context, str):
         # parse html
         soup_threads = BeautifulSoup(context, 'html5lib')
         # just a filter for a listcomps
         list_threads = soup_threads.find_all('div', class_='thread')
         # a tuple comps -> (('id', 'description')...)
-        threads = tuple((int(thread['id'][1:]),
+        threads = list((int(thread['id'][1:]),
                         thread.find(class_='postMessage').get_text()[:length])
 
-                        for thread in list_threads)
+                       for thread in list_threads)
         return threads
 
 

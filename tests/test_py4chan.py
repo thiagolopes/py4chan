@@ -42,10 +42,10 @@ class TestGetThreads(unittest.TestCase):
         self.assertEqual(len(self.get[0][1]), 50)
 
     def test_get_threads_instance(self):
-        self.assertIsInstance(self.get, tuple)
+        self.assertIsInstance(self.get, list)
 
     def test_get_threads_none(self):
-        self.assertEqual(get_threads(''), ())
+        self.assertEqual(get_threads(''), [])
 
     def test_get_threads_is_int(self):
         self.assertIsInstance(self.get[0][0], int)
