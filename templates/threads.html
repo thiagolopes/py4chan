@@ -7,7 +7,9 @@
 {% set page = request.args.get("page", "None") %}
 
 {% for id, msg in threads %}
-<p><a href="{{ url_for('thread_images', id_t=id, name=request.view_args.get("board")) }}">{{ id }}</a> - {{msg }}</p>
+<p><a href="{{ url_for('thread_images', id_t=id, name=request.view_args.get("board")) }}">{{ id }}</a>
+ | <a href="{{ url_for('thread_images', id_t=id, name=request.view_args.get("board")) }}?thumbs=on"><i> (thumbs)</i></a>
+- {{ msg }}</p>
 {% endfor %}
 
 <hr>

@@ -38,7 +38,10 @@ def thread_images(name=None, id_t=None):
         context = requests.get('https://boards.4chan.org/{}/thread/{}'
                                .format(name, id_t))
         context.raise_for_status()
-        images = py4chan.get_images_links(context.text)
+        if request.args.get('thumbs', None):
+            images = py4chan.get_images_links(context.text, thumbs=True)
+        else:
+            images = py4chan.get_images_links(context.text)
         return render_template('images.html', images_list=images)
     except requests.exceptions.HTTPError:
         return "404, no images here", 404
