@@ -63,5 +63,18 @@ class TestGetImagesLinks(unittest.TestCase):
         self.assertEqual(self.get[0], 'https://t.4cdn.org/g/1450659832892.png')
 
 
+class TestGetImagesLinksThumbs(unittest.TestCase):
+
+    def setUp(self):
+        self.context = requests.get(LINK_THREAD.format('g', '51971506'))
+        self.get = get_images_links(self.context.text, True)
+
+    def test_get_images(self):
+        self.assertIsInstance(self.get, tuple)
+        self.assertEqual(len(self.get), 1)
+        self.assertEqual(self.get[0],
+                         'https://t.4cdn.org/g/1450659832892s.jpg')
+
+
 if __name__ == '__main__':
     unittest.main()

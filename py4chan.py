@@ -31,7 +31,6 @@ def get_boards(context: str, just_code=False) -> dict:
         return dict()
 
 
-# TODO implemente pagination
 # TODO implemente all pages threads
 def get_threads(context: str, preview=True, length=50) -> list:
     if isinstance(context, str):
@@ -47,15 +46,20 @@ def get_threads(context: str, preview=True, length=50) -> list:
         return threads
 
 
-def get_images_links(context: str) -> tuple:
+def get_images_links(context: str, thumbs=False) -> tuple:
     if isinstance(context, str):
         soup_images = BeautifulSoup(context, 'html5lib')
         list_links = soup_images.find_all('a', class_='fileThumb')
         # change //.i to //.t, not to receive 403
-        links = tuple('https:' + x['href'].replace('//i.', '//t.')
-                      for x in list_links)
+        if thumbs:
+            links = tuple('https:' +
+                          x['href'].replace('//i.', '//t.')[:-4] +
+                          's.jpg'
+                          for x in list_links)
+        else:
+            links = tuple('https:' + x['href'].replace('//i.', '//t.')
+                          for x in list_links)
 
-        # TODO implemente thumbnais
         """
         the link for thumnais is //.t and xxxxxxxxs.jpg
         """
